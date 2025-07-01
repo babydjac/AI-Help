@@ -2,7 +2,7 @@
   "schema_version": "v1",
   "name_for_model": "grok",
   "name_for_human": "Ask Grok",
-  "description_for_model": "Use this when the user says 'Hey Grok' or wants help from Grok. Sends user questions to the Grok API for completion.",
+  "description_for_model": "Use this tool when the user says 'Hey Grok' or wants help from Grok. Sends the user's message to the Grok model via xAI API.",
   "description_for_human": "Ask Grok for help — powered by xAI’s Grok model.",
   "auth": {
     "type": "user_http",
@@ -10,10 +10,9 @@
   },
   "api": {
     "type": "openapi",
-    "url": "https://yourdomain.com/openapi.yaml"
+    "url": "https://babydjac.github.io/AI-Help/openapi.yaml"
   },
-  "logo_url": "https://yourdomain.com/logo.png",
+  "logo_url": "https://babydjac.github.io/AI-Help/logo.png",
   "contact_email": "you@example.com",
-  "legal_info_url": "https://yourdomain.com/legal"
+  "legal_info_url": "https://babydjac.github.io/AI-Help/legal.html"
 }
-
