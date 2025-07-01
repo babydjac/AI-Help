@@ -12,7 +12,5 @@
     "type": "openapi",
     "url": "https://babydjac.github.io/AI-Help/openapi.yaml"
   },
-  "logo_url": "https://babydjac.github.io/AI-Help/logo.png",
-  "contact_email": "you@example.com",
-  "legal_info_url": "https://babydjac.github.io/AI-Help/legal.html"
+  "contact_email": "you@example.com"
 }
