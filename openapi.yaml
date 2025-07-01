@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: xAI Grok API
-  description: Interact with xAI's Grok language model using chat-based messages. This is useful for asking Grok for help when prompted, e.g., "Hey Grok, what does this mean?"
+  description: Interact with xAI's Grok language model using chat-based messages.
   version: 1.0.0
 servers:
   - url: https://api.x.ai/v1
@@ -11,7 +11,7 @@ paths:
     post:
       operationId: createChatCompletion
       summary: Get a chat completion from Grok
-      description: Sends a list of chat messages to the Grok model and receives a completion response.
+      description: Sends messages to the Grok model and receives a response.
       requestBody:
         required: true
         content:
@@ -20,7 +20,7 @@ paths:
               $ref: '#/components/schemas/ChatCompletionRequest'
       responses:
         '200':
-          description: A successful response from the Grok model
+          description: Successful response
           content:
             application/json:
               schema:
@@ -32,7 +32,6 @@ components:
     bearerAuth:
       type: http
       scheme: bearer
-      bearerFormat: JWT
   schemas:
     Message:
       type: object
@@ -43,10 +42,8 @@ components:
         role:
           type: string
           enum: [system, user, assistant]
-          description: The role of the message sender.
         content:
           type: string
-          description: The content of the message.
     ChatCompletionRequest:
       type: object
       required:
@@ -56,10 +53,8 @@ components:
         model:
           type: string
           example: grok-3-latest
-          description: The ID of the Grok model to use.
         messages:
           type: array
-          description: A list of messages forming the conversation.
           items:
             $ref: '#/components/schemas/Message'
         temperature:
@@ -67,11 +62,9 @@ components:
           default: 0.7
           minimum: 0
           maximum: 2
-          description: Sampling temperature.
         stream:
           type: boolean
           default: false
-          description: If true, the response will be streamed.
     ChatCompletionResponse:
       type: object
       properties:
@@ -96,4 +89,3 @@ components:
                 $ref: '#/components/schemas/Message'
               finish_reason:
                 type: string
-
