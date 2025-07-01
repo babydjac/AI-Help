@@ -1,0 +1,99 @@
+openapi: 3.1.0
+info:
+  title: xAI Grok API
+  description: Interact with xAI's Grok language model using chat-based messages. This is useful for asking Grok for help when prompted, e.g., "Hey Grok, what does this mean?"
+  version: 1.0.0
+servers:
+  - url: https://api.x.ai/v1
+    description: xAI production API server
+paths:
+  /chat/completions:
+    post:
+      operationId: createChatCompletion
+      summary: Get a chat completion from Grok
+      description: Sends a list of chat messages to the Grok model and receives a completion response.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatCompletionRequest'
+      responses:
+        '200':
+          description: A successful response from the Grok model
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChatCompletionResponse'
+      security:
+        - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Message:
+      type: object
+      required:
+        - role
+        - content
+      properties:
+        role:
+          type: string
+          enum: [system, user, assistant]
+          description: The role of the message sender.
+        content:
+          type: string
+          description: The content of the message.
+    ChatCompletionRequest:
+      type: object
+      required:
+        - model
+        - messages
+      properties:
+        model:
+          type: string
+          example: grok-3-latest
+          description: The ID of the Grok model to use.
+        messages:
+          type: array
+          description: A list of messages forming the conversation.
+          items:
+            $ref: '#/components/schemas/Message'
+        temperature:
+          type: number
+          default: 0.7
+          minimum: 0
+          maximum: 2
+          description: Sampling temperature.
+        stream:
+          type: boolean
+          default: false
+          description: If true, the response will be streamed.
+    ChatCompletionResponse:
+      type: object
+      properties:
+        id:
+          type: string
+        object:
+          type: string
+        created:
+          type: integer
+        model:
+          type: string
+        system_fingerprint:
+          type: string
+        choices:
+          type: array
+          items:
+            type: object
+            properties:
+              index:
+                type: integer
+              message:
+                $ref: '#/components/schemas/Message'
+              finish_reason:
+                type: string
+
